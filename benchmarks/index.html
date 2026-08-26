@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sidewalk TV Benchmarks — Real P&Ls from Real Owners</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #fef5ed;
+      --black: #1a1a1a;
+      --blue: #1a8fff;
+      --muted: #888;
+      --border: #e8ddd4;
+    }
+
+    body {
+      background: var(--cream);
+      color: var(--black);
+      font-family: 'Outfit', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAV */
+    nav {
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      
+    }
+
+    .logo {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--black);
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--blue);
+    }
+
+    /* HERO */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 40px 24px 40px;
+      text-align: center;
+      max-width: 860px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* HERO TOP: title/copy + image side by side */
+    .hero-top {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 32px;
+      width: 100%;
+      margin-bottom: 32px;
+    }
+
+    .hero-copy {
+      flex: none;
+      max-width: 480px;
+      min-width: 0;
+      text-align: center;
+    }
+
+    .hero-image {
+      width: 220px;
+      max-width: 38%;
+      flex-shrink: 0;
+      height: auto;
+    }
+
+    @media (max-width: 640px) {
+      .hero-top {
+        /* inherits column from base */
+        text-align: center;
+      }
+      .hero-copy {
+        text-align: center;
+      }
+      .hero-image {
+        width: 260px;
+        max-width: 80%;
+      }
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 20px;
+      background: rgba(26, 143, 255, 0.08);
+      padding: 6px 14px;
+      border-radius: 100px;
+      display: inline-block;
+    }
+
+    h1 {
+      font-size: clamp(36px, 6.5vw, 60px);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      color: var(--black);
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--blue);
+    }
+
+    .subhead {
+      font-size: clamp(18px, 3.2vw, 23px);
+      font-weight: 400;
+      color: #555;
+      line-height: 1.6;
+      max-width: 340px;
+    }
+
+    /* PRICE */
+    .price-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+      margin-top: 32px;
+      justify-content: center;
+    }
+
+    .price {
+      font-size: 68px;
+      font-weight: 800;
+      color: var(--black);
+    }
+
+    .price-label {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.4;
+      text-align: left;
+    }
+
+    /* FORM */
+    .form-wrap {
+      width: 100%;
+      max-width: 440px;
+      margin: 90px auto 16px;
+    }
+
+    .form-wrap form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .form-wrap input[type="email"] {
+      width: 100%;
+      padding: 15px 18px;
+      font-size: 15px;
+      font-family: 'Outfit', sans-serif;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      background: #fff;
+      color: var(--black);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-wrap input[type="email"]:focus {
+      border-color: var(--blue);
+    }
+
+    .form-wrap input[type="email"]::placeholder {
+      color: #bbb;
+    }
+
+    .notify-btn {
+      width: 100%;
+      padding: 15px 18px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: 'Outfit', sans-serif;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+      letter-spacing: 0.01em;
+    }
+
+    .notify-btn:hover { opacity: 0.88; }
+    .notify-btn:active { transform: scale(0.98); }
+
+    .form-note {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* SUCCESS */
+    .success-msg {
+      display: none;
+      background: rgba(26, 143, 255, 0.08);
+      border: 1.5px solid rgba(26, 143, 255, 0.2);
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-size: 14px;
+      color: var(--blue);
+      font-weight: 500;
+      text-align: center;
+      width: 100%;
+      max-width: 440px;
+    }
+
+    /* CATEGORIES */
+    .categories {
+      width: 100%;
+      max-width: 540px;
+      margin: 40px auto 0;
+      padding-top: 36px;
+      border-top: 1px solid var(--border);
+    }
+
+    .categories-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .cat-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .cat-pill {
+      padding: 8px 16px;
+      border-radius: 100px;
+      border: 1.5px solid var(--border);
+      font-size: 13px;
+      font-weight: 500;
+      color: #555;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.15s;
+      user-select: none;
+    }
+
+    .cat-pill:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    .pkg-card.active {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
+    }
+
+    /* SOCIAL PROOF */
+    .proof {
+      display: flex;
+      gap: 28px;
+      justify-content: center;
+      margin-top: 48px;
+      flex-wrap: wrap;
+    }
+
+    .proof-item {
+      text-align: center;
+    }
+
+    .proof-num {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--black);
+      display: block;
+    }
+
+    .proof-desc {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    footer a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    @media (max-width: 480px) {
+      .proof { gap: 20px; }
+    }
+  
+    /* CAROUSEL */
+    .carousel-wrap {
+      width: 100%;
+      max-width: 860px;
+      margin: 0 -24px 40px;
+      width: calc(100% + 48px);
+      overflow: hidden;
+      display: none;
+    }
+    .carousel-track {
+      display: flex;
+      gap: 16px;
+      will-change: transform;
+    }
+    .carousel-slide {
+      flex: 0 0 164px;
+      display: flex;
+      justify-content: center;
+    }
+    .carousel-slide img {
+      width: 164px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 24px;
+      border: 5px solid var(--black);
+      display: block;
+    }
+    @media (max-width: 480px) {
+      .carousel-slide { flex-basis: 140px; }
+      .carousel-slide img { width: 140px; height: 256px; }
+    }
+  
+    /* TRUST BADGES */
+    .trust-badges {
+      margin: 0 auto 16px;
+      font-size: 14px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.9;
+    }
+  
+    /* PACKAGE CARDS */
+    .pkg-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      justify-content: center;
+      max-width: 216px;
+      margin: 14px auto 0;
+    }
+    .pkg-card {
+      width: 100px;
+      height: 70px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+      user-select: none;
+    }
+    .pkg-emoji {
+      font-size: 30px;
+      line-height: 1;
+    }
+    .pkg-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: #444;
+      transition: color 0.15s;
+    }
+    .pkg-card.active {
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+    .pkg-card.active .pkg-name {
+      color: #fff;
+    }
+  
+    .categories {
+      margin-bottom: 20px;
+    }
+  
+    /* P&L FAN EFFECT */
+    .pkg-card {
+      position: relative;
+      overflow: visible;
+      z-index: 2;
+    }
+    .pl-fan {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .pl-fan-item {
+      position: absolute;
+      left: 50%;
+      top: -8px;
+      width: 34px;
+      height: auto;
+      border-radius: 3px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.28);
+      transform: translate(-50%, 0) rotate(0deg) scale(0.3);
+      opacity: 0;
+      transition: transform 0.42s cubic-bezier(.34,1.56,.64,1), opacity 0.25s ease;
+    }
+    .pl-fan-item.show {
+      transform: translate(calc(-50% + var(--tx)), var(--ty)) rotate(var(--angle)) scale(1);
+      opacity: 1;
+    }
+  
+    /* MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1000;
+    }
+    .modal-overlay.open {
+      display: flex;
+    }
+    .modal-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 32px 24px 24px;
+      max-width: 420px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      background: none;
+      border: none;
+      font-size: 26px;
+      line-height: 1;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 4px 8px;
+    }
+  
+    /* SITE HEADER */
+    .site-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 24px;
+      
+    }
+    .site-header img {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: block;
+    }
+    .site-header .site-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--black);
+      letter-spacing: -0.01em;
+    }
+    .site-header .site-title span {
+      color: var(--blue);
+    }
+  
+    .category-select {
+      width: 100%;
+      padding: 15px 18px;
+      font-size: 15px;
+      font-family: 'Outfit', sans-serif;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      background: #fff;
+      color: var(--black);
+      outline: none;
+      cursor: pointer;
+    }
+    .category-select:focus {
+      border-color: var(--blue);
+    }
+  </style>
+</head>
+<body>
+
+<div class="site-header">
+  <img src="/benchmarks/images/logo.png" alt="Sidewalk TV logo" />
+  <div class="site-title">Sidewalk<span>TV</span></div>
+</div>
+
+<div class="hero">
+
+  
+  <div class="hero-top">
+    <div class="hero-copy">
+      <h1>Real P&Ls from<br/><em>Real Owners</em></h1>
+      <p class="subhead">
+        A packet of 10 verified P&Ls from coffee shops, restaurants, pizzerias and more. $97 when it launches.
+      </p>
+    </div>
+  </div>
+
+  <div class="carousel-wrap">
+    <div class="carousel-track" id="carouselTrack">
+      <div class="carousel-slide"><img src="https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/tok-flow-01-h-e6-d7-x-w65-a-y-c4-q-y-s49-q-k-b-g8-e-49jj7l/assets/vcmbpsimknfp/Blue_Modern_Minimalist_Fashion_Coming_Soon_Instagram_Story-11.gif" alt="" /></div>
+      <div class="carousel-slide"><img src="https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/tok-flow-01-h-e6-d7-x-w65-a-y-c4-q-y-s49-q-k-b-g8-e-49jj7l/assets/inniv1tpis2j/Blue_Modern_Minimalist_Fashion_Coming_Soon_Instagram_Story-2.gif" alt="" /></div>
+      <div class="carousel-slide"><img src="https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/tok-flow-01-h-e6-d7-x-w65-a-y-c4-q-y-s49-q-k-b-g8-e-49jj7l/assets/8c3howvtata2/Blue_Modern_Minimalist_Fashion_Coming_Soon_Instagram_Story-6.png" alt="" /></div>
+    </div>
+  </div>
+
+  <div class="success-msg" id="successMsg">
+    ✓ You're on the list! We'll email you the moment it drops.
+  </div>
+
+  <div class="form-wrap">
+    <form id="notifyForm">
+      <p class="form-note">Join the waitlist. We'll email you the moment your vertical drops.</p>
+
+      <input type="email" id="emailInput" name="email" placeholder="your@email.com" required />
+
+      <select id="categorySelect" name="category" class="category-select" required>
+        <option value="" disabled selected>Which category are you interested in?</option>
+        <option value="Coffee Shops">☕ Coffee Shops</option>
+        <option value="Pizzerias">🍕 Pizzerias</option>
+        <option value="Restaurants">🍽️ Restaurants</option>
+        <option value="Food Trucks">🚚 Food Trucks</option>
+        <option value="Breweries">🍺 Breweries</option>
+        <option value="Dessert / Ice Cream">🍦 Dessert / Ice Cream</option>
+      </select>
+
+      <button type="submit" class="notify-btn">Notify Me</button>
+    </form>
+  </div>
+
+  <div class="trust-badges">
+    <div>✓ 50+ interviews conducted</div>
+    <div>✓ Owner verified</div>
+    <div>✓ Fully anonymized</div>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Sidewalk TV · <a href="https://instagram.com/sidewalk.tv">Instagram</a>
+</footer>
+
+
+
+
+<script>
+// Category toggle
+  function toggleCat(el) {
+    el.classList.toggle('active');
+    if (el.classList.contains('active')) {
+      spawnFan(el);
+    } else {
+      removeFan(el);
+    }
+  }
+  function spawnFan(el) {
+    removeFan(el);
+    const angles = [-32, -25, -18, -11, -4, 3, 10, 17];
+    const fan = document.createElement('div');
+    fan.className = 'pl-fan';
+    angles.forEach((angle, i) => {
+      const img = document.createElement('img');
+      img.src = '/benchmarks/images/pl-clipboard.png';
+      img.className = 'pl-fan-item';
+      const tx = (i - 3.5) * 4;
+      const ty = -46 - (i * 2);
+      img.style.setProperty('--angle', angle + 'deg');
+      img.style.setProperty('--tx', tx + 'px');
+      img.style.setProperty('--ty', ty + 'px');
+      img.style.zIndex = i;
+      img.style.transitionDelay = (i * 0.04) + 's';
+      fan.appendChild(img);
+    });
+    el.appendChild(fan);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        fan.querySelectorAll('.pl-fan-item').forEach(img => img.classList.add('show'));
+      });
+    });
+  }
+
+  function removeFan(el) {
+    const fan = el.querySelector('.pl-fan');
+    if (fan) {
+      fan.querySelectorAll('.pl-fan-item').forEach(img => img.classList.remove('show'));
+      setTimeout(() => { if (fan.parentNode) fan.parentNode.removeChild(fan); }, 300);
+    }
+  }
+
+
+  // Form submission — sends to Formspree so Joel gets notified
+  document.getElementById('notifyForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const email = document.getElementById('emailInput').value.trim();
+    if (!email) return;
+
+    const categorySelect = document.getElementById('categorySelect');
+    const category = categorySelect && categorySelect.value ? categorySelect.value : '';
+
+    const submitBtn = document.querySelector('#notifyForm .notify-btn');
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending...'; }
+
+    fetch('https://formspree.io/f/mpqveveg', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(document.getElementById('notifyForm'))
+    }).then(function(response) {
+      if (response.ok) {
+        document.getElementById('notifyForm').style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+      } else {
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Notify Me'; }
+        alert('Something went wrong — please try again.');
+      }
+    }).catch(function() {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Notify Me'; }
+      alert('Something went wrong — please try again.');
+    });
+  });
+</script>
+
+
+<script>
+(function(){
+  var track = document.getElementById('carouselTrack');
+  if(!track) return;
+  var real = Array.prototype.slice.call(track.children);
+  var firstClone = real[0].cloneNode(true);
+  var lastClone = real[real.length - 1].cloneNode(true);
+  track.appendChild(firstClone);
+  track.insertBefore(lastClone, real[0]);
+  var index = 1;
+  function slideStep(){
+    var slide = track.children[0];
+    var rect = slide.getBoundingClientRect();
+    var gap = 16;
+    return rect.width + gap;
+  }
+  function setPosition(animate){
+    track.style.transition = animate ? 'transform 0.6s ease' : 'none';
+    var wrap = track.parentElement;
+    var step = slideStep();
+    var offset = -(index * step) + (wrap.clientWidth - step) / 2;
+    track.style.transform = 'translateX(' + offset + 'px)';
+  }
+  function next(){
+    index++;
+    setPosition(true);
+    if(index === track.children.length - 1){
+      setTimeout(function(){
+        index = 1;
+        setPosition(false);
+      }, 620);
+    }
+  }
+  window.addEventListener('resize', function(){ setPosition(false); });
+  setPosition(false);
+  setInterval(next, 5000);
+})();
+</script>
+</body>
+</html>
