@@ -32,8 +32,7 @@
     .photo-wrap img { display:block; width:100%; height:100%; object-fit:cover; object-position:50% 50%; }
     .marker { position:absolute; display:inline-flex; align-items:center; gap:6px; color:var(--blue); font-size:12px; font-weight:800; line-height:1; text-shadow:0 1px 0 var(--white); }
     .marker b { display:grid; place-items:center; width:34px; height:34px; border-radius:999px; background:var(--blue); color:var(--white); box-shadow:var(--soft-shadow); font-size:17px; }
-    .marker::after { content:""; position:absolute; top:38px; left:16px; height:42px; border-left:2px dotted var(--blue); opacity:.78; }
-    .wear { left:8%; top:51%; } .use { left:39%; top:57%; } .place { right:5%; top:62%; }
+    .place-marker { left:39%; top:59%; } .use-marker { right:6%; top:50%; } .feature-marker { left:30%; top:55%; }
     .stats { display:grid; grid-template-columns:1fr 1fr; width:min(100%,520px); margin:16px auto 0; overflow:hidden; border:1px solid var(--border); border-radius:16px; background:var(--white); color:var(--ink); box-shadow:var(--soft-shadow); }
     .stat { display:grid; min-height:86px; grid-template-columns:34px 1fr; gap:12px; align-items:center; padding:16px; text-align:left; }
     .stat + .stat { border-left:1px solid var(--border); }
@@ -51,15 +50,14 @@
     .stack { display:grid; margin-bottom:22px; }
     .item { overflow:clip; border:1px solid var(--border); background:var(--white); box-shadow:var(--soft-shadow); }
     .item:first-child { border-radius:16px 16px 0 0; } .item:last-child { border-radius:0 0 16px 16px; } .item + .item { margin-top:-1px; }
-    .trigger { display:grid; width:100%; min-height:68px; grid-template-columns:46px 1fr 28px; gap:12px; align-items:center; border:0; background:transparent; color:var(--ink); padding:14px 18px; text-align:left; }
-    .icon { display:grid; place-items:center; width:40px; height:40px; border-radius:12px; background:rgba(26,143,255,.09); color:var(--blue); font-size:18px; font-weight:800; }
+    .trigger { display:grid; width:100%; min-height:68px; grid-template-columns:1fr 28px; gap:12px; align-items:center; border:0; background:transparent; color:var(--ink); padding:14px 18px; text-align:left; }
     .title { min-width:0; font-size:20px; font-weight:800; line-height:1.1; overflow-wrap:anywhere; }
     .indicator { justify-self:end; color:var(--ink); font-size:31px; font-weight:500; line-height:1; }
     .trigger[aria-expanded="true"] .indicator { color:var(--blue); }
     .panel { display:grid; grid-template-rows:0fr; transition:grid-template-rows 180ms ease; }
     .panel[aria-hidden="false"] { grid-template-rows:1fr; }
     .panel-inner { min-height:0; overflow:hidden; }
-    .content { padding:0 18px 22px 76px; }
+    .content { padding:0 18px 22px; }
     .content p { margin:0; color:var(--ink); font-size:17px; line-height:1.55; }
     .final { padding:18px 0 28px; text-align:center; }
     .primary { width:100%; }
@@ -87,7 +85,7 @@
     .status.is-visible { display:block; } .status.info { border:1px solid rgba(26,143,255,.2); background:rgba(26,143,255,.08); color:var(--blue); } .status.success { border:1px solid rgba(26,143,255,.24); background:rgba(26,143,255,.09); color:var(--blue); } .status.failure { border:1px solid var(--border); background:var(--secondary); color:var(--ink); }
     .honeypot { position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden; }
     @media (max-width:350px) {
-      .header{min-height:72px}.wordmark{font-size:25px}.hero{padding-inline:12px}.photo-wrap{border-radius:16px}h1{font-size:35px}.hero-copy{font-size:15px}.marker{gap:4px;font-size:10px}.marker b{width:30px;height:30px;font-size:15px}.marker::after{height:28px;top:34px;left:14px}.wear{left:5%;top:50%}.use{left:35%;top:58%}.place{right:3%;top:64%}.stat{grid-template-columns:1fr;gap:6px;justify-items:center;padding:13px 10px;text-align:center}.stat .mark{width:28px;height:28px;font-size:16px}.stat strong{font-size:24px}.examples-card{padding:12px}.example-strip{gap:6px}.trigger{grid-template-columns:38px 1fr 24px;gap:10px;padding-inline:12px}.icon{width:36px;height:36px}.title{font-size:17px}.content{padding-left:12px;padding-right:12px}
+      .header{min-height:72px}.wordmark{font-size:25px}.hero{padding-inline:12px}.photo-wrap{border-radius:16px}h1{font-size:35px}.hero-copy{font-size:15px}.marker{gap:4px;font-size:10px}.marker b{width:30px;height:30px;font-size:15px}.place-marker{left:37%;top:59%}.use-marker{right:3%;top:50%}.feature-marker{left:23%;top:55%}.stat{grid-template-columns:1fr;gap:6px;justify-items:center;padding:13px 10px;text-align:center}.stat .mark{width:28px;height:28px;font-size:16px}.stat strong{font-size:24px}.examples-card{padding:12px}.example-strip{gap:6px}.trigger{grid-template-columns:1fr 24px;gap:10px;padding-inline:12px}.title{font-size:17px}.content{padding-left:12px;padding-right:12px}
     }
     @media (min-width:620px) {
       .modal{display:none; align-items:center; justify-content:center; padding:24px}
@@ -106,9 +104,9 @@
       <p class="hero-copy">Show us what you’ve got. We’ll find a natural way to work it into the conversation.</p>
       <div class="photo-wrap">
         <img src="images/product-placement-coffee-shop-hero.webp" width="960" height="1200" alt="SidewalkTV restaurant-owner interview outside Coffee Therapy" fetchpriority="high" decoding="async" />
-        <div class="marker wear" aria-label="Placement idea 1: Wear it"><b>1</b>WEAR IT</div>
-        <div class="marker use" aria-label="Placement idea 2: Use it"><b>2</b>USE IT</div>
-        <div class="marker place" aria-label="Placement idea 3: Place it"><b>3</b>PLACE IT</div>
+        <div class="marker place-marker" aria-label="Placement idea 1: Place it"><b>1</b>PLACE IT</div>
+        <div class="marker use-marker" aria-label="Placement idea 2: Use it"><b>2</b>USE IT</div>
+        <div class="marker feature-marker" aria-label="Placement idea 3: Feature it"><b>3</b>FEATURE IT</div>
       </div>
       <div class="stats" aria-label="SidewalkTV audience statistics">
         <div class="stat"><span class="mark" aria-hidden="true">••</span><div><strong>50K+</strong><span>FOLLOWERS</span></div></div>
@@ -128,9 +126,9 @@
       </section>
       <section class="info" aria-label="Product placement information">
         <div class="stack" data-accordion-group="info">
-          <article class="item"><button class="trigger" type="button" id="info-watch-trigger" aria-expanded="false" aria-controls="info-watch-panel" data-analytics="product-placement-info-accordion-who-watches"><span class="icon" aria-hidden="true">••</span><span class="title">WHO WATCHES SIDEWALKTV?</span><span class="indicator" aria-hidden="true">+</span></button><div class="panel" id="info-watch-panel" role="region" aria-labelledby="info-watch-trigger" aria-hidden="true"><div class="panel-inner"><div class="content"><p>SidewalkTV reaches restaurant owners, operators, entrepreneurs, employees, vendors, and people who want to understand how real local businesses work.</p></div></div></div></article>
-          <article class="item"><button class="trigger" type="button" id="info-work-trigger" aria-expanded="false" aria-controls="info-work-panel" data-analytics="product-placement-info-accordion-how-it-works"><span class="icon" aria-hidden="true">⌚</span><span class="title">HOW DOES IT WORK?</span><span class="indicator" aria-hidden="true">+</span></button><div class="panel" id="info-work-panel" role="region" aria-labelledby="info-work-trigger" aria-hidden="true"><div class="panel-inner"><div class="content"><p>Tell us about your product and anything you are already imagining. We’ll review it, consider where it could fit naturally, and reach out to discuss possibilities. The final placement can be simple, experimental, or completely different from the examples above.</p></div></div></div></article>
-          <article class="item"><button class="trigger" type="button" id="info-after-trigger" aria-expanded="false" aria-controls="info-after-panel" data-analytics="product-placement-info-accordion-what-happens"><span class="icon" aria-hidden="true">✉</span><span class="title">WHAT HAPPENS AFTER I REACH OUT?</span><span class="indicator" aria-hidden="true">+</span></button><div class="panel" id="info-after-panel" role="region" aria-labelledby="info-after-trigger" aria-hidden="true"><div class="panel-inner"><div class="content"><p>We’ll review the request and contact you at the email address you provide. Reaching out does not create a commitment, guarantee placement, or lock either side into a predefined package.</p></div></div></div></article>
+          <article class="item"><button class="trigger" type="button" id="info-watch-trigger" aria-expanded="false" aria-controls="info-watch-panel" data-analytics="product-placement-info-accordion-who-watches"><span class="title">WHO WATCHES SIDEWALKTV?</span><span class="indicator" aria-hidden="true">+</span></button><div class="panel" id="info-watch-panel" role="region" aria-labelledby="info-watch-trigger" aria-hidden="true"><div class="panel-inner"><div class="content"><p>SidewalkTV reaches restaurant owners, operators, entrepreneurs, employees, vendors, and people who want to understand how real local businesses work.</p></div></div></div></article>
+          <article class="item"><button class="trigger" type="button" id="info-work-trigger" aria-expanded="false" aria-controls="info-work-panel" data-analytics="product-placement-info-accordion-how-it-works"><span class="title">HOW DOES IT WORK?</span><span class="indicator" aria-hidden="true">+</span></button><div class="panel" id="info-work-panel" role="region" aria-labelledby="info-work-trigger" aria-hidden="true"><div class="panel-inner"><div class="content"><p>Tell us about your product and anything you are already imagining. We’ll review it, consider where it could fit naturally, and reach out to discuss possibilities. The final placement can be simple, experimental, or completely different from the examples above.</p></div></div></div></article>
+          <article class="item"><button class="trigger" type="button" id="info-after-trigger" aria-expanded="false" aria-controls="info-after-panel" data-analytics="product-placement-info-accordion-what-happens"><span class="title">WHAT HAPPENS AFTER I REACH OUT?</span><span class="indicator" aria-hidden="true">+</span></button><div class="panel" id="info-after-panel" role="region" aria-labelledby="info-after-trigger" aria-hidden="true"><div class="panel-inner"><div class="content"><p>We’ll review the request and contact you at the email address you provide. Reaching out does not create a commitment, guarantee placement, or lock either side into a predefined package.</p></div></div></div></article>
         </div>
       </section>
       <section class="final" aria-label="Request product placement">
