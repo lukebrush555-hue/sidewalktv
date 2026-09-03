@@ -8,6 +8,8 @@ SidewalkTV is a media channel that interviews independent restaurant owners abou
 
 When external technical documentation is needed, use only the approved sources below.
 
+Before introducing or configuring a project tool, consult its approved official installation and CI documentation.
+
 - [Official Codex documentation](https://developers.openai.com/codex/) — Codex behavior, configuration, permissions, and `AGENTS.md`.
 - [GitHub Docs](https://docs.github.com/) — repositories, authentication, branches, pull requests, Actions, and Pages.
 - [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web) — HTML, CSS, JavaScript, accessibility, and browser behavior.
