@@ -22,6 +22,13 @@ Before introducing or configuring a project tool, consult its approved official 
 - Do not begin or repair an authentication setup unless requested. If no available method has write access, report the blocker.
 - Never store tokens, credentials, or other secrets in this repository.
 
+## Deployment
+
+- `main` is the production branch.
+- Feature branches and open pull requests are not deployed to the public GitHub Pages site.
+- A push or merge to `main` triggers `.github/workflows/pages.yml`.
+- Treat a deployment as successful only after the `Deploy GitHub Pages` workflow completes successfully.
+
 ## Browser Testing
 
 - Use Playwright for browser rendering, screenshots, and UI checks.
