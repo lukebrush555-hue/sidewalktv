@@ -29,6 +29,12 @@ Before introducing or configuring a project tool, consult its approved official 
 - A push or merge to `main` triggers `.github/workflows/pages.yml`.
 - Treat a deployment as successful only after the `Deploy GitHub Pages` workflow completes successfully.
 
+## Mobile-First and Design Consistency
+
+- Treat mobile as the primary experience. Desktop must remain functional and visually coherent.
+- Before creating new styles or components, inspect and reuse the repository's existing patterns where practical.
+- Preserve the established SidewalkTV colors, typography, buttons, spacing, and overall visual character unless the user explicitly approves a change.
+
 ## Browser Testing
 
 - Use Playwright for browser rendering, screenshots, and UI checks.
